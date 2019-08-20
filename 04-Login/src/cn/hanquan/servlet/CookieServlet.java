@@ -29,7 +29,7 @@ public class CookieServlet extends HttpServlet {
 			}
 
 			if ("".equals(uid)) {// 部分cookie被用户删除
-				req.setAttribute("str", "什么鬼，你清理了cookie吗");
+				req.setAttribute("str", "你清理了cookie吗");
 				req.getRequestDispatcher("page").forward(req, resp);
 				return;
 			} else {// 二次验证用户存在
