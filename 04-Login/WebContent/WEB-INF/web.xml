@@ -9,6 +9,8 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  
   <servlet>
     <description></description>
     <display-name>CookieServlet</display-name>
@@ -19,6 +21,8 @@
     <servlet-name>CookieServlet</servlet-name>
     <url-pattern>/CookieServlet</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>MainServlet</display-name>
@@ -29,6 +33,8 @@
     <servlet-name>MainServlet</servlet-name>
     <url-pattern>/MainServlet</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>PageServlet</display-name>
@@ -39,6 +45,8 @@
     <servlet-name>PageServlet</servlet-name>
     <url-pattern>/PageServlet</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
@@ -49,4 +57,32 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  
+
+  <servlet>
+    <description></description>
+    <display-name>NumServlet</display-name>
+    <servlet-name>NumServlet</servlet-name>
+    <servlet-class>cn.hanquan.servlet.NumServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>	<!-- tomcat启动立即加载 -->
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NumServlet</servlet-name>
+    <url-pattern>/NumServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <description></description>
+    <display-name>ShowServlet</display-name>
+    <servlet-name>ShowServlet</servlet-name>
+    <servlet-class>cn.hanquan.servlet.ShowServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowServlet</servlet-name>
+    <url-pattern>/ShowServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
 </web-app>

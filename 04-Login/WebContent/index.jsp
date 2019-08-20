@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>JSP页面</title>
 </head>
 <body>
-	
+	<form action='CookieServlet' method='get'>
+		<input type='submit' value='跳转到CookieServlet' /><br />
+	</form>
 </body>
 </html>

@@ -2,11 +2,13 @@ package cn.hanquan.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cn.hanquan.orm.core.Query;
 import cn.hanquan.orm.core.QueryFactory;
@@ -20,7 +22,7 @@ public class CookieServlet extends HttpServlet {
 		resp.setContentType("text/html;charset=utf-8");
 
 		Cookie[] cks = req.getCookies();
-		if (cks != null) {
+		if (cks != null) {// 有cookie
 			String uid = "";
 			for (Cookie c : cks) {
 				if ("uid".equals(c.getName())) {
@@ -28,27 +30,42 @@ public class CookieServlet extends HttpServlet {
 				}
 			}
 
-			if ("".equals(uid)) {// 部分cookie被用户删除
-				req.setAttribute("str", "你清理了cookie吗");
-				req.getRequestDispatcher("page").forward(req, resp);
+			if ("".equals(uid)) {// cookie不完整
+				req.setAttribute("str", "You have cleaned cookie, please login again.");
+				req.getRequestDispatcher("/PageServlet").forward(req, resp);
 				return;
 			} else {// 二次验证用户存在
 				User u = new User();
 				u.setUid(Integer.parseInt(uid));
 				Query q = QueryFactory.createQuery();
-				Object result = q.queryUniqueRow("select * from user where uid=?", User.class, new String[] { uid });
+				Object o = q.queryUniqueRow("select * from user where uid=?", User.class, new String[] { uid });
 
-				if (result != null) {
+				if (o != null) {
+					u = (User) o;
+					// 登录数据存入session
+					HttpSession hs = req.getSession();
+					hs.setAttribute("user", u);
+
+					// 计数器
+					ServletContext sc = this.getServletContext();
+					if (sc.getAttribute("nums") != null) {
+						int nums = Integer.parseInt((String) sc.getAttribute("nums"));
+						nums += 1;
+						sc.setAttribute("nums", nums + "");
+					} else {
+						sc.setAttribute("nums", "1");
+					}
+
+					// 重定向
 					resp.sendRedirect("MainServlet");
 					return;
 				} else {
-					req.setAttribute("str", "你似乎不在数据库里了");
-					req.getRequestDispatcher("/PageServlet").forward(req, resp);
+					resp.sendRedirect("MainServlet");
 					return;
 				}
 			}
-		} else {
-			req.getRequestDispatcher("page").forward(req, resp);
+		} else {// 没有cookie
+			resp.sendRedirect("MainServlet");
 			return;
 		}
 	}
